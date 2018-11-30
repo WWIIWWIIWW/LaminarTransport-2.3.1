@@ -224,7 +224,7 @@ Foam::laminarTransport::laminarTransport
                    mesh.time().timeName(),
                    mesh,
                    IOobject::NO_READ,
-                   IOobject::AUTO_WRITE
+                   IOobject::NO_WRITE
                ),
                mesh,
                dimensionedVector
@@ -250,7 +250,7 @@ Foam::laminarTransport::laminarTransport
                    mesh.time().timeName(),
                    mesh,
                    IOobject::NO_READ,
-                   IOobject::AUTO_WRITE
+                   IOobject::NO_WRITE
                ),
                mesh,
                dimensionedVector
@@ -473,7 +473,7 @@ Foam::tmp<Foam::volScalarField> Foam::laminarTransport::JHs() const
         }
 
         // JHs += thermo_.rho()*hSpecie*Y_[specieI]*V_[specieI];
-        JHs += thermo_.rho()*hSpecie*DiffFlux_[specieI];
+        JHs += hSpecie*DiffFlux_[specieI];
         // JHs.write();
     }
 

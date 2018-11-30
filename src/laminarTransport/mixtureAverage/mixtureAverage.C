@@ -117,8 +117,9 @@ void Foam::mixtureAverage::correct()
         }
         else
         {
-            volVectorField Vcorr_[i] = Dmix_[i]/thermo_.rho()*fvc::grad(X_[i], "grad(Xi)")
-                        *(W()/composition_.W(i));
+            volVectorField Vcorr_[i] = Dmix_[i]/thermo_.rho()*fvc::grad(Y_[i], "grad(Yi)")
+                                    - Y_[i]*Dmix_[i]*fvc::grad(W())
+                                    /(thermo_.rho()*W());
         }
     }
 
@@ -174,7 +175,7 @@ Foam::tmp<Foam::volVectorField> Foam::mixtureAverage::VT
     (
         -Dmix_[specieI]*Theta_[specieI]
         /(
-            (X_[specieI] + dimensionedScalar("zero", dimless, 1.0e-6))
+            (X_[specieI] + dimensionedScalar("zero", dimless, SMALL))
             *thermo_.rho()
         )
         *fvc::grad(logT, "grad(T)")
@@ -357,7 +358,7 @@ Foam::mixtureAverage::mixtureAverage
     c_(n_),
     d_(n_),
     Theta_(n_),
-    gradX_(mixtureAverageDict_.lookupOrDefault("", true)),
+    gradX_(mixtureAverageDict_.lookupOrDefault("gradX", true)),
     thermophoresis_
     (
         mixtureAverageDict_.lookupOrDefault("thermophoresis", false)
@@ -411,7 +412,7 @@ Foam::mixtureAverage::mixtureAverage
                    mesh.time().timeName(),
                    mesh,
                    IOobject::NO_READ,
-                   IOobject::AUTO_WRITE
+                   IOobject::NO_WRITE
                ),
                mesh,
                dimensionedScalar("zero",dimensionSet(1,-1,-1,0,0,0,0),0 )       
@@ -639,28 +640,36 @@ void Foam::mixtureAverage::update()
                 -Dmix_[specieI]*fvc::grad(Y_[specieI], "grad(Yi)")
                 /(
                     thermo_.rho()
-                    *(Y_[specieI] + dimensionedScalar("zero", dimless, 1.0e-6)) 
+                    *(Y_[specieI] + dimensionedScalar("zero", dimless, SMALL)) 
                  )
             );
             V_[specieI] += VT(specieI); 
 
             DiffFlux_[specieI] = -Dmix_[specieI]*fvc::grad(Y_[specieI], "grad(Yi)");
-            DiffFlux_[specieI] += VT(specieI)*Y_[specieI]*thermo_.rho();
+            DiffFlux_[specieI] += -Dmix_[specieI]*Theta_[specieI]*fvc::grad(logT, "grad(T)");  
         }
         else
         {
             V_[specieI] = 
             (
-                -Dmix_[specieI]*fvc::grad(X_[specieI], "grad(Xi)")
+                -Dmix_[specieI]*fvc::grad(Y_[specieI], "grad(Yi)")
                 /(
                     thermo_.rho()
-                   *(X_[specieI] + dimensionedScalar("zero", dimless, 1.0e-6))
+                   *(Y_[specieI] + dimensionedScalar("zero", dimless, SMALL))
+                )
+                - Dmix_[specieI]*fvc::grad(W())
+                /(
+                    thermo_.rho()*W()
                 )
             );
             V_[specieI] += VT(specieI); 
 
-            DiffFlux_[specieI] = -Dmix_[specieI]*fvc::grad(X_[specieI], "grad(Yi)");
-            DiffFlux_[specieI] += VT(specieI)*X_[specieI]*thermo_.rho();
+            // DiffFlux_[specieI] = -Dmix_[specieI]*fvc::grad(X_[specieI], "grad(Xi)"*(W()/composition_.W(specieI));
+
+            DiffFlux_[specieI] = -Dmix_[specieI]*fvc::grad(Y_[specieI], "grad(Yi)") 
+                                 - Dmix_[specieI]/W()*fvc::grad(W())*Y_[specieI];
+            DiffFlux_[specieI] += -Dmix_[specieI]*Theta_[specieI]*(W()/composition_.W(specieI))
+                                  *fvc::grad(logT, "grad(T)");       
         }
 
     }
@@ -820,10 +829,8 @@ Foam::tmp<Foam::volScalarField> Foam::mixtureAverage::JHs() const
             }
         }
 
-        // JHs += thermo_.rho()*hSpecie*Y_[specieI]*V_[specieI];
-        JHs += hSpecie*DiffFlux_[specieI];
-
-        // JHs.write();
+        JHs += thermo_.rho()*hSpecie*Y_[specieI]*V_[specieI];
+        // JHs += hSpecie*DiffFlux_[specieI];
     }
 
     return fvc::div(tJHs);    
