@@ -34,6 +34,7 @@ chemistryReader foamChemistryReader;
 // foamChemistryThermoFile "$FOAM_CASE/constant/thermo.compressibleGas";
 
 foamChemistryFile "$FOAM_CASE/chemkin/methanol.foam.inp";
+
 foamChemistryThermoFile "$FOAM_CASE/chemkin/thermo30_foamnew.dat";
 
 // ************************************************************************* //
