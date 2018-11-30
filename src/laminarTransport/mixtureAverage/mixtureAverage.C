@@ -829,8 +829,8 @@ Foam::tmp<Foam::volScalarField> Foam::mixtureAverage::JHs() const
             }
         }
 
-        JHs += thermo_.rho()*hSpecie*Y_[specieI]*V_[specieI];
-        // JHs += hSpecie*DiffFlux_[specieI];
+        // JHs += thermo_.rho()*hSpecie*Y_[specieI]*V_[specieI];
+        JHs += hSpecie*DiffFlux_[specieI];
     }
 
     return fvc::div(tJHs);    
