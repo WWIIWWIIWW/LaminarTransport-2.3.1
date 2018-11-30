@@ -98,19 +98,30 @@ Foam::tmp<Foam::volScalarField> Foam::mixtureAverage::phi
 
 void Foam::mixtureAverage::correct()
 {
-    Vcorr_ = 
-    (
-        dimensionedVector
-        (
-            "zero",
-            dimensionSet(0, 1, -1, 0, 0, 0, 0),
-            vector(0, 0, 0)
-        )
-    );
+    // Vcorr_ = 
+    // (
+    //     dimensionedVector
+    //     (
+    //         "zero",
+    //         dimensionSet(0, 1, -1, 0, 0, 0, 0),
+    //         vector(0, 0, 0)
+    //     )
+    // );
     forAll(Y_, i)
     {
-        Vcorr_ -= Y_[i]*V_[i];
+        // Vcorr_ -= Y_[i]*V_[i];
+
+        if (!gradX_)
+        {
+            volVectorField Vcorr_[i] = Dmix_[i]/thermo_.rho()*fvc::grad(Y_[i], "grad(Yi)");
+        }
+        else
+        {
+            volVectorField Vcorr_[i] = Dmix_[i]/thermo_.rho()*fvc::grad(X_[i], "grad(Xi)")
+                        *(W()/composition_.W(i));
+        }
     }
+
     phiCorr_ = 
         linearInterpolate
         (
@@ -122,6 +133,7 @@ void Foam::mixtureAverage::correct()
     forAll(Y_, specieI)
     {
         V_[specieI] += Vcorr_;
+        DiffFlux_[specieI] += Y_[specieI]*Vcorr_*thermo_.rho();
     }
 }
 
@@ -162,7 +174,7 @@ Foam::tmp<Foam::volVectorField> Foam::mixtureAverage::VT
     (
         -Dmix_[specieI]*Theta_[specieI]
         /(
-            (X_[specieI] + dimensionedScalar("zero", dimless, SMALL))
+            (X_[specieI] + dimensionedScalar("zero", dimless, 1.0e-6))
             *thermo_.rho()
         )
         *fvc::grad(logT, "grad(T)")
@@ -208,7 +220,7 @@ Foam::tmp<Foam::volVectorField> Foam::mixtureAverage::VT
     (
         -Dmix_[specieI]*Theta_[specieI]
         /(
-            (X_[specieI] + dimensionedScalar("zero", dimless, SMALL))
+            (X_[specieI] + dimensionedScalar("zero", dimless, 1.0e-6))
             *thermo_.rho()
         )
         *fvc::grad(logT, "grad(T)")
@@ -345,7 +357,7 @@ Foam::mixtureAverage::mixtureAverage
     c_(n_),
     d_(n_),
     Theta_(n_),
-    gradX_(mixtureAverageDict_.lookupOrDefault("gradX", true)),
+    gradX_(mixtureAverageDict_.lookupOrDefault("", true)),
     thermophoresis_
     (
         mixtureAverageDict_.lookupOrDefault("thermophoresis", false)
@@ -399,7 +411,7 @@ Foam::mixtureAverage::mixtureAverage
                    mesh.time().timeName(),
                    mesh,
                    IOobject::NO_READ,
-                   IOobject::NO_WRITE
+                   IOobject::AUTO_WRITE
                ),
                mesh,
                dimensionedScalar("zero",dimensionSet(1,-1,-1,0,0,0,0),0 )       
@@ -555,7 +567,7 @@ void Foam::mixtureAverage::update()
             const label k = index(specieI, specieJ);
             DInv +=
             (
-                (X_[specieJ] + dimensionedScalar("zero", dimless, SMALL))
+                (X_[specieJ] + dimensionedScalar("zero", dimless, 1.0e-8))
                /this->D_[k] 
             );
         }
@@ -627,9 +639,13 @@ void Foam::mixtureAverage::update()
                 -Dmix_[specieI]*fvc::grad(Y_[specieI], "grad(Yi)")
                 /(
                     thermo_.rho()
-                    *(Y_[specieI] + dimensionedScalar("zero", dimless,SMALL)) 
+                    *(Y_[specieI] + dimensionedScalar("zero", dimless, 1.0e-6)) 
                  )
             );
+            V_[specieI] += VT(specieI); 
+
+            DiffFlux_[specieI] = -Dmix_[specieI]*fvc::grad(Y_[specieI], "grad(Yi)");
+            DiffFlux_[specieI] += VT(specieI)*Y_[specieI]*thermo_.rho();
         }
         else
         {
@@ -638,11 +654,15 @@ void Foam::mixtureAverage::update()
                 -Dmix_[specieI]*fvc::grad(X_[specieI], "grad(Xi)")
                 /(
                     thermo_.rho()
-                   *(X_[specieI] + dimensionedScalar("zero", dimless,SMALL))
+                   *(X_[specieI] + dimensionedScalar("zero", dimless, 1.0e-6))
                 )
             );
+            V_[specieI] += VT(specieI); 
+
+            DiffFlux_[specieI] = -Dmix_[specieI]*fvc::grad(X_[specieI], "grad(Yi)");
+            DiffFlux_[specieI] += VT(specieI)*X_[specieI]*thermo_.rho();
         }
-        V_[specieI] += VT(specieI);
+
     }
     correct();
     //-calculate the mixture thermal conductivity
@@ -730,7 +750,84 @@ Foam::tmp<Foam::fvScalarMatrix> Foam::mixtureAverage::Yflux
     return tYflux;
 }
 
+Foam::tmp<Foam::volScalarField> Foam::mixtureAverage::JHs() const
+{
+    tmp<volVectorField> tJHs
+    (
+        new volVectorField
+        (
+            IOobject
+            (
+                "JHs",
+                kappa_.mesh().time().timeName(),
+                kappa_.mesh(),
+                IOobject::NO_READ,
+                IOobject::NO_WRITE,
+                false
+            ),
+            kappa_.mesh(),
+            dimensionedVector
+            (
+                "zero",
+                dimensionSet(1, 0, -3, 0, 0, 0, 0),
+                vector(0, 0, 0)
+            )
+        )       
+    );
+    
+    tmp<volScalarField> thSpecie
+    (
+        new volScalarField
+        (
+            IOobject
+            (
+                "hSpecie",
+                kappa_.mesh().time().timeName(),
+                kappa_.mesh(),
+                IOobject::NO_READ,
+                IOobject::NO_WRITE,
+                false
+            ),
+            kappa_.mesh(),
+            dimensionedScalar("zero", dimEnergy/dimMass, 0.0)
+        )
+    );
+    
+    volVectorField& JHs = tJHs();
+    volScalarField& hSpecie = thSpecie();
+    
+    forAll(Y_, specieI)
+    {
+        forAll(Y_[specieI], cellI)
+        {
+            const scalar Ti = thermo_.T()[cellI];
+            const scalar pi = thermo_.p()[cellI];
+            
+            hSpecie[cellI] = composition_.Hs(specieI, pi, Ti);
+        }
+        forAll(thermo_.T().boundaryField(), patchI)
+        {
+            fvPatchScalarField& pp = thermo_.p().boundaryField()[patchI];
+            fvPatchScalarField& pT = thermo_.T().boundaryField()[patchI];
+            fvPatchScalarField& ph = hSpecie.boundaryField()[patchI];
+            
+            forAll(pT, faceI)
+            {
+                const scalar Ti = pT[faceI];
+                const scalar pi = pp[faceI];
+                
+                ph[faceI] = composition_.Hs(specieI, pi, Ti);
+            }
+        }
 
+        // JHs += thermo_.rho()*hSpecie*Y_[specieI]*V_[specieI];
+        JHs += hSpecie*DiffFlux_[specieI];
+
+        // JHs.write();
+    }
+
+    return fvc::div(tJHs);    
+}
 
 
 // ************************************************************************* //

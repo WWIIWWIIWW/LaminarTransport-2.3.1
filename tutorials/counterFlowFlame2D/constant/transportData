@@ -1,0 +1,549 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  2.3.1                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "constant";
+    object      transportData;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+CH4
+{
+    moleculeType    2;
+    LennardJonesParam 141.4;
+    CollisionDiam   3.746e-10;
+    dipoleMoment    0;
+    polarizability  2.6e-30;
+    RotationalRelaxation 13;
+}
+
+CH2O
+{
+    moleculeType    2;
+    LennardJonesParam 498;
+    CollisionDiam   3.59e-10;
+    dipoleMoment    0;
+    polarizability  0;
+    RotationalRelaxation 2;
+}
+
+CH3O
+{
+    moleculeType    2;
+    LennardJonesParam 417;
+    CollisionDiam   3.69e-10;
+    dipoleMoment    5.67059e-30;
+    polarizability  0;
+    RotationalRelaxation 2;
+}
+
+H
+{
+    moleculeType    0;
+    LennardJonesParam 145;
+    CollisionDiam   2.05e-10;
+    dipoleMoment    0;
+    polarizability  0;
+    RotationalRelaxation 0;
+}
+
+O2
+{
+    moleculeType    1;
+    LennardJonesParam 107.4;
+    CollisionDiam   3.458e-10;
+    dipoleMoment    0;
+    polarizability  1.6e-30;
+    RotationalRelaxation 3.8;
+}
+
+H2
+{
+    moleculeType    1;
+    LennardJonesParam 38;
+    CollisionDiam   2.92e-10;
+    dipoleMoment    0;
+    polarizability  7.9e-31;
+    RotationalRelaxation 280;
+}
+
+O
+{
+    moleculeType    0;
+    LennardJonesParam 80;
+    CollisionDiam   2.75e-10;
+    dipoleMoment    0;
+    polarizability  0;
+    RotationalRelaxation 0;
+}
+
+OH
+{
+    moleculeType    1;
+    LennardJonesParam 80;
+    CollisionDiam   2.75e-10;
+    dipoleMoment    0;
+    polarizability  0;
+    RotationalRelaxation 0;
+}
+
+H2O
+{
+    moleculeType    2;
+    LennardJonesParam 572.4;
+    CollisionDiam   2.605e-10;
+    dipoleMoment    6.15092e-30;
+    polarizability  0;
+    RotationalRelaxation 4;
+}
+
+HO2
+{
+    moleculeType    2;
+    LennardJonesParam 107.4;
+    CollisionDiam   3.458e-10;
+    dipoleMoment    0;
+    polarizability  0;
+    RotationalRelaxation 1;
+}
+
+H2O2
+{
+    moleculeType    2;
+    LennardJonesParam 107.4;
+    CollisionDiam   3.458e-10;
+    dipoleMoment    0;
+    polarizability  0;
+    RotationalRelaxation 3.8;
+}
+
+C
+{
+    moleculeType    0;
+    LennardJonesParam 71.4;
+    CollisionDiam   3.298e-10;
+    dipoleMoment    0;
+    polarizability  0;
+    RotationalRelaxation 0;
+}
+
+CH
+{
+    moleculeType    1;
+    LennardJonesParam 80;
+    CollisionDiam   2.75e-10;
+    dipoleMoment    0;
+    polarizability  0;
+    RotationalRelaxation 0;
+}
+
+CH2
+{
+    moleculeType    1;
+    LennardJonesParam 144;
+    CollisionDiam   3.8e-10;
+    dipoleMoment    0;
+    polarizability  0;
+    RotationalRelaxation 0;
+}
+
+CH2(S)
+{
+    moleculeType    1;
+    LennardJonesParam 144;
+    CollisionDiam   3.8e-10;
+    dipoleMoment    0;
+    polarizability  0;
+    RotationalRelaxation 0;
+}
+
+CH3
+{
+    moleculeType    1;
+    LennardJonesParam 144;
+    CollisionDiam   3.8e-10;
+    dipoleMoment    0;
+    polarizability  0;
+    RotationalRelaxation 0;
+}
+
+CO
+{
+    moleculeType    1;
+    LennardJonesParam 98.1;
+    CollisionDiam   3.65e-10;
+    dipoleMoment    0;
+    polarizability  1.95e-30;
+    RotationalRelaxation 1.8;
+}
+
+CO2
+{
+    moleculeType    1;
+    LennardJonesParam 244;
+    CollisionDiam   3.763e-10;
+    dipoleMoment    0;
+    polarizability  2.65e-30;
+    RotationalRelaxation 2.1;
+}
+
+HCO
+{
+    moleculeType    2;
+    LennardJonesParam 498;
+    CollisionDiam   3.59e-10;
+    dipoleMoment    0;
+    polarizability  0;
+    RotationalRelaxation 0;
+}
+
+CH2OH
+{
+    moleculeType    2;
+    LennardJonesParam 417;
+    CollisionDiam   3.69e-10;
+    dipoleMoment    5.67059e-30;
+    polarizability  0;
+    RotationalRelaxation 2;
+}
+
+CH3OH
+{
+    moleculeType    2;
+    LennardJonesParam 481.8;
+    CollisionDiam   3.626e-10;
+    dipoleMoment    0;
+    polarizability  0;
+    RotationalRelaxation 1;
+}
+
+C2H
+{
+    moleculeType    1;
+    LennardJonesParam 209;
+    CollisionDiam   4.1e-10;
+    dipoleMoment    0;
+    polarizability  0;
+    RotationalRelaxation 2.5;
+}
+
+C2H2
+{
+    moleculeType    1;
+    LennardJonesParam 209;
+    CollisionDiam   4.1e-10;
+    dipoleMoment    0;
+    polarizability  0;
+    RotationalRelaxation 2.5;
+}
+
+C2H3
+{
+    moleculeType    2;
+    LennardJonesParam 209;
+    CollisionDiam   4.1e-10;
+    dipoleMoment    0;
+    polarizability  0;
+    RotationalRelaxation 1;
+}
+
+C2H4
+{
+    moleculeType    2;
+    LennardJonesParam 280.8;
+    CollisionDiam   3.971e-10;
+    dipoleMoment    0;
+    polarizability  0;
+    RotationalRelaxation 1.5;
+}
+
+C2H5
+{
+    moleculeType    2;
+    LennardJonesParam 252.3;
+    CollisionDiam   4.302e-10;
+    dipoleMoment    0;
+    polarizability  0;
+    RotationalRelaxation 1.5;
+}
+
+C2H6
+{
+    moleculeType    2;
+    LennardJonesParam 252.3;
+    CollisionDiam   4.302e-10;
+    dipoleMoment    0;
+    polarizability  0;
+    RotationalRelaxation 1.5;
+}
+
+HCCO
+{
+    moleculeType    2;
+    LennardJonesParam 150;
+    CollisionDiam   2.5e-10;
+    dipoleMoment    0;
+    polarizability  0;
+    RotationalRelaxation 1;
+}
+
+CH2CO
+{
+    moleculeType    2;
+    LennardJonesParam 436;
+    CollisionDiam   3.97e-10;
+    dipoleMoment    0;
+    polarizability  0;
+    RotationalRelaxation 2;
+}
+
+HCCOH
+{
+    moleculeType    2;
+    LennardJonesParam 436;
+    CollisionDiam   3.97e-10;
+    dipoleMoment    0;
+    polarizability  0;
+    RotationalRelaxation 2;
+}
+
+N
+{
+    moleculeType    0;
+    LennardJonesParam 71.4;
+    CollisionDiam   3.298e-10;
+    dipoleMoment    0;
+    polarizability  0;
+    RotationalRelaxation 0;
+}
+
+NH
+{
+    moleculeType    1;
+    LennardJonesParam 80;
+    CollisionDiam   2.65e-10;
+    dipoleMoment    0;
+    polarizability  0;
+    RotationalRelaxation 4;
+}
+
+NH2
+{
+    moleculeType    2;
+    LennardJonesParam 80;
+    CollisionDiam   2.65e-10;
+    dipoleMoment    0;
+    polarizability  2.26e-30;
+    RotationalRelaxation 4;
+}
+
+NH3
+{
+    moleculeType    2;
+    LennardJonesParam 481;
+    CollisionDiam   2.92e-10;
+    dipoleMoment    4.90339e-30;
+    polarizability  0;
+    RotationalRelaxation 10;
+}
+
+NNH
+{
+    moleculeType    2;
+    LennardJonesParam 71.4;
+    CollisionDiam   3.798e-10;
+    dipoleMoment    0;
+    polarizability  0;
+    RotationalRelaxation 1;
+}
+
+NO
+{
+    moleculeType    1;
+    LennardJonesParam 97.53;
+    CollisionDiam   3.621e-10;
+    dipoleMoment    0;
+    polarizability  1.76e-30;
+    RotationalRelaxation 4;
+}
+
+NO2
+{
+    moleculeType    2;
+    LennardJonesParam 200;
+    CollisionDiam   3.5e-10;
+    dipoleMoment    0;
+    polarizability  0;
+    RotationalRelaxation 1;
+}
+
+N2O
+{
+    moleculeType    1;
+    LennardJonesParam 232.4;
+    CollisionDiam   3.828e-10;
+    dipoleMoment    0;
+    polarizability  0;
+    RotationalRelaxation 1;
+}
+
+HNO
+{
+    moleculeType    2;
+    LennardJonesParam 116.7;
+    CollisionDiam   3.492e-10;
+    dipoleMoment    0;
+    polarizability  0;
+    RotationalRelaxation 1;
+}
+
+CN
+{
+    moleculeType    1;
+    LennardJonesParam 75;
+    CollisionDiam   3.856e-10;
+    dipoleMoment    0;
+    polarizability  0;
+    RotationalRelaxation 1;
+}
+
+HCN
+{
+    moleculeType    1;
+    LennardJonesParam 569;
+    CollisionDiam   3.63e-10;
+    dipoleMoment    0;
+    polarizability  0;
+    RotationalRelaxation 1;
+}
+
+H2CN
+{
+    moleculeType    1;
+    LennardJonesParam 569;
+    CollisionDiam   3.63e-10;
+    dipoleMoment    0;
+    polarizability  0;
+    RotationalRelaxation 1;
+}
+
+HCNN
+{
+    moleculeType    2;
+    LennardJonesParam 150;
+    CollisionDiam   2.5e-10;
+    dipoleMoment    0;
+    polarizability  0;
+    RotationalRelaxation 1;
+}
+
+HCNO
+{
+    moleculeType    2;
+    LennardJonesParam 232.4;
+    CollisionDiam   3.828e-10;
+    dipoleMoment    0;
+    polarizability  0;
+    RotationalRelaxation 1;
+}
+
+HOCN
+{
+    moleculeType    2;
+    LennardJonesParam 232.4;
+    CollisionDiam   3.828e-10;
+    dipoleMoment    0;
+    polarizability  0;
+    RotationalRelaxation 1;
+}
+
+HNCO
+{
+    moleculeType    2;
+    LennardJonesParam 232.4;
+    CollisionDiam   3.828e-10;
+    dipoleMoment    0;
+    polarizability  0;
+    RotationalRelaxation 1;
+}
+
+NCO
+{
+    moleculeType    1;
+    LennardJonesParam 232.4;
+    CollisionDiam   3.828e-10;
+    dipoleMoment    0;
+    polarizability  0;
+    RotationalRelaxation 1;
+}
+
+N2
+{
+    moleculeType    1;
+    LennardJonesParam 97.53;
+    CollisionDiam   3.621e-10;
+    dipoleMoment    0;
+    polarizability  1.76e-30;
+    RotationalRelaxation 4;
+}
+
+AR
+{
+    moleculeType    0;
+    LennardJonesParam 136.5;
+    CollisionDiam   3.33e-10;
+    dipoleMoment    0;
+    polarizability  0;
+    RotationalRelaxation 0;
+}
+
+C3H7
+{
+    moleculeType    2;
+    LennardJonesParam 266.8;
+    CollisionDiam   4.982e-10;
+    dipoleMoment    0;
+    polarizability  0;
+    RotationalRelaxation 1;
+}
+
+C3H8
+{
+    moleculeType    2;
+    LennardJonesParam 266.8;
+    CollisionDiam   4.982e-10;
+    dipoleMoment    0;
+    polarizability  0;
+    RotationalRelaxation 1;
+}
+
+CH2CHO
+{
+    moleculeType    2;
+    LennardJonesParam 436;
+    CollisionDiam   3.97e-10;
+    dipoleMoment    0;
+    polarizability  0;
+    RotationalRelaxation 2;
+}
+
+CH3CHO
+{
+    moleculeType    2;
+    LennardJonesParam 436;
+    CollisionDiam   3.97e-10;
+    dipoleMoment    0;
+    polarizability  0;
+    RotationalRelaxation 2;
+}
+
+
+// ************************************************************************* //

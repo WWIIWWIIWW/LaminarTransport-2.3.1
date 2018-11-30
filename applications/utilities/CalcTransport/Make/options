@@ -11,8 +11,8 @@ EXE_INC = \
     -I$(LIB_SRC)/thermophysicalModels/chemistryModel/lnInclude \
     -I$(LIB_SRC)/ODE/lnInclude \
     -I$(LIB_SRC)/combustionModels/lnInclude \
-    -I$(FOAM_USER_SRC)/moleFractions/lnInclude \
-    -I$(FOAM_USER_SRC)/laminarTransport/lnInclude \
+    -I$(LIB_LaminarTransport_SRC)/moleFractions/lnInclude \
+    -I$(LIB_LaminarTransport_SRC)/laminarTransport/lnInclude \
     -I$(LIB_SRC)/combustionModels/lnInclude
 
 EXE_LIBS = \

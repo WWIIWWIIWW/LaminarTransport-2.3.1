@@ -122,13 +122,13 @@ Foam::laminarTransport::laminarTransport
             mesh.time().timeName(),
             mesh,
             IOobject::NO_READ,
-            IOobject::AUTO_WRITE,
-            false
+            IOobject::AUTO_WRITE
         ),
         mesh,
         dimensionedScalar("zero", dimensionSet(1, 1, -3, -1, 0, 0, 0), 0.0)
     ),    
     V_(n_),
+    DiffFlux_(n_),
     U_(U),
     a0_(n_),
     a1_(n_),
@@ -212,7 +212,7 @@ Foam::laminarTransport::laminarTransport
    }   
    forAll(V_, i)
    {
-       const word name = "V." + Y_[i].name();
+       const word name = "V_" + Y_[i].name();
        V_.set
        (
            i,
@@ -224,13 +224,39 @@ Foam::laminarTransport::laminarTransport
                    mesh.time().timeName(),
                    mesh,
                    IOobject::NO_READ,
-                   IOobject::NO_WRITE
+                   IOobject::AUTO_WRITE
                ),
                mesh,
                dimensionedVector
                (
                    "zero",
                    dimensionSet(0, 1, -1, 0, 0, 0, 0),
+                   Foam::vector(0, 0, 0)
+               )
+           )
+       );
+   }
+   forAll(DiffFlux_, i)
+   {
+       const word name = "DiffFlux_" + Y_[i].name();
+       DiffFlux_.set
+       (
+           i,
+           new volVectorField
+           (
+               IOobject
+               (
+                   name,
+                   mesh.time().timeName(),
+                   mesh,
+                   IOobject::NO_READ,
+                   IOobject::AUTO_WRITE
+               ),
+               mesh,
+               dimensionedVector
+               (
+                   "zero",
+                   dimensionSet(1, -2, -1, 0, 0, 0, 0),
                    Foam::vector(0, 0, 0)
                )
            )
@@ -445,10 +471,12 @@ Foam::tmp<Foam::volScalarField> Foam::laminarTransport::JHs() const
                 ph[faceI] = composition_.Hs(specieI, pi, Ti);
             }
         }
-        
-        JHs += thermo_.rho()*hSpecie*Y_[specieI]*V_[specieI];
+
+        // JHs += thermo_.rho()*hSpecie*Y_[specieI]*V_[specieI];
+        JHs += thermo_.rho()*hSpecie*DiffFlux_[specieI];
+        // JHs.write();
     }
-    
+
     return fvc::div(tJHs);    
 }
 

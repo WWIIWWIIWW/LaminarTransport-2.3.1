@@ -80,6 +80,8 @@ protected:
         volScalarField kappa_;
         //- diffusion velocities
         PtrList<volVectorField> V_;
+        //- diffusion Flux   DiffFlux_[k] = rho*Y_[k]*V_[k]
+        PtrList<volVectorField> DiffFlux_;
         //- reference to velocity field
         const volVectorField& U_;
         //Viscosity Coefficients
@@ -187,7 +189,7 @@ public:
         //- Net diffusive flux. Should be zero
         tmp<surfaceScalarField> sumJ() const;
         //- Return the divergence of interdiffusion sensible enthalpy flux
-        tmp<volScalarField> JHs() const;
+        virtual tmp<volScalarField> JHs() const;
         //- Return the explicit part of heat conduction in terms of enthalpy
         tmp<volScalarField> Hconduction() const;
         //-return the explicit part of heat conduction in terms of internal energy

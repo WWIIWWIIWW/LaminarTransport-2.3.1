@@ -127,6 +127,9 @@ public:
         //- Return the source term for the mass fraction equations
         virtual tmp<fvScalarMatrix> Yflux(const volScalarField& Yi) const;
         
+        //- Return the divergence of interdiffusion sensible enthalpy flux
+        virtual tmp<volScalarField> JHs() const; 
+        
         // Update
         virtual void update();
 

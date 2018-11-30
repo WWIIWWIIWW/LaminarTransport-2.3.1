@@ -26,7 +26,9 @@ volScalarField rho
     (
         "rho",
         runTime.timeName(),
-        mesh
+        mesh,
+        IOobject::NO_READ,
+        IOobject::AUTO_WRITE
     ),
     thermo.rho()
 );
@@ -108,6 +110,20 @@ volScalarField dQ
     dimensionedScalar("dQ", dimEnergy/dimTime, 0.0)
 );
 
+volScalarField Sh
+(
+    IOobject
+    (
+        "Sh",
+        runTime.timeName(),
+        mesh,
+        IOobject::NO_READ,
+        IOobject::AUTO_WRITE
+    ),
+    mesh,
+    dimensionedScalar("Sh", dimEnergy/dimTime/dimVolume, 0.0)
+);
+
 autoPtr<laminarTransport> ptransport
 (
   laminarTransport::New
@@ -124,7 +140,7 @@ laminarTransport& transport = ptransport();
 PtrList<volScalarField> ROP_(Y.size());
 forAll(Y, i)
 {
-    const word RRname = "ROP." + Y[i].name();
+    const word RRname = "ROP_" + Y[i].name();
     ROP_.set
     (
         i,
@@ -143,3 +159,23 @@ forAll(Y, i)
         )
     );    
 }
+
+
+volScalarField JHs
+(
+    IOobject
+    (
+        "div_JHs",
+        mesh.time().timeName(),
+        mesh,
+        IOobject::NO_READ,
+        IOobject::AUTO_WRITE
+    ),
+    mesh,
+    dimensionedScalar
+    (
+        "zero",
+        dimensionSet(1, -1, -3, 0, 0, 0, 0),
+        0.0
+    )
+);

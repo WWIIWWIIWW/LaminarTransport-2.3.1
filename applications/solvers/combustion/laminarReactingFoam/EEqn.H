@@ -43,4 +43,14 @@
 
     Info<< "min/max(T) = "
         << min(T).value() << ", " << max(T).value() << endl;
+
+    
+    JHs = transport.JHs();
+    Sh = reaction->Sh();
+     
+    if (runTime.write())
+    {
+        he.write();
+    }
+
 }

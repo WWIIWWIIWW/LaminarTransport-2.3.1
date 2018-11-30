@@ -5,7 +5,7 @@ EXE_INC = \
     -I$(LIB_SRC)/thermophysicalModels/specie/lnInclude \
     -I$(LIB_SRC)/thermophysicalModels/reactionThermo/lnInclude \
     -I$(LIB_SRC)/transportModels/compressible/lnInclude \
-    -I$(FOAM_USER_SRC)/moleFractions/lnInclude \
+    -I$(LIB_LaminarTransport_SRC)/moleFractions/lnInclude \
     -I$(LIB_SRC)/thermophysicalModels/specie/lnInclude
 
 LIB_LIBS = \
