@@ -1,3 +1,0 @@
-LOCAL_OBJECTS = \
-molecularTransport.o\
-fitTransport.o

@@ -1,5 +1,0 @@
-DEPENDENCIES = \
-laminarTransport/laminarTransport.dep\
-laminarTransport/laminarTransportNew.dep\
-mixtureAverage/mixtureAverage.dep\
-LewisNumber/LewisNumber.dep

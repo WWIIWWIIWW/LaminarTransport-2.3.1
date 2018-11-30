@@ -1,1 +1,0 @@
-../opticallyThin/opticallyThin.C

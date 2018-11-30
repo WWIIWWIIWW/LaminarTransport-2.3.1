@@ -1,3 +1,0 @@
-OBJECTS = \
-$(OBJECTS_DIR)/molecularTransport.o\
-$(OBJECTS_DIR)/fitTransport.o

@@ -1,4 +1,0 @@
-include laminarTransport/laminarTransport.dep
-include laminarTransport/laminarTransportNew.dep
-include mixtureAverage/mixtureAverage.dep
-include LewisNumber/LewisNumber.dep

@@ -1,5 +1,0 @@
-OBJECTS = \
-$(OBJECTS_DIR)/laminarTransport.o\
-$(OBJECTS_DIR)/laminarTransportNew.o\
-$(OBJECTS_DIR)/mixtureAverage.o\
-$(OBJECTS_DIR)/LewisNumber.o

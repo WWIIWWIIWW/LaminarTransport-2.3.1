@@ -1,5 +1,0 @@
-SOURCE = \
-laminarTransport/laminarTransport.C\
-laminarTransport/laminarTransportNew.C\
-mixtureAverage/mixtureAverage.C\
-LewisNumber/LewisNumber.C
