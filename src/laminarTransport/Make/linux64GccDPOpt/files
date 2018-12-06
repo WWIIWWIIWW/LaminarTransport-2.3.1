@@ -53,6 +53,8 @@
 
 # 4 "<command-line>" 2
 # 1 "files"
+moleFractions/moleFraction.C
+
 laminarTransport/laminarTransport.C
 laminarTransport/laminarTransportNew.C
 mixtureAverage/mixtureAverage.C

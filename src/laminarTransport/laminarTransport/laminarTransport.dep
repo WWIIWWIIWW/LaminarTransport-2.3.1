@@ -485,8 +485,8 @@ laminarTransport/laminarTransport.dep: $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/
 laminarTransport/laminarTransport.dep: $(WM_PROJECT_DIR)/src/thermophysicalModels/reactionThermo/lnInclude/basicMultiComponentMixtureI.H
 laminarTransport/laminarTransport.dep: $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/simpleMatrix.H
 laminarTransport/laminarTransport.dep: $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/simpleMatrix.C
-laminarTransport/laminarTransport.dep: /home/gaozw//OpenFOAM/LaminarTransport-2.3.1/src//moleFractions/lnInclude/moleFraction.H
-laminarTransport/laminarTransport.dep: /home/gaozw//OpenFOAM/LaminarTransport-2.3.1/src//moleFractions/lnInclude/moleFractionI.H
+laminarTransport/laminarTransport.dep: lnInclude/moleFraction.H
+laminarTransport/laminarTransport.dep: lnInclude/moleFractionI.H
 laminarTransport/laminarTransport.dep: $(WM_PROJECT_DIR)/src/finiteVolume/lnInclude/fvCFD.H
 laminarTransport/laminarTransport.dep: $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/parRun.H
 laminarTransport/laminarTransport.dep: $(WM_PROJECT_DIR)/src/finiteVolume/lnInclude/fvc.H

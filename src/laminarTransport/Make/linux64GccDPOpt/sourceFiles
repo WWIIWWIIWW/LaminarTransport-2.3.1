@@ -1,4 +1,5 @@
 SOURCE = \
+moleFractions/moleFraction.C\
 laminarTransport/laminarTransport.C\
 laminarTransport/laminarTransportNew.C\
 mixtureAverage/mixtureAverage.C\

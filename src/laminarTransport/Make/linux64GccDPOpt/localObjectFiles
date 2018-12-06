@@ -1,4 +1,5 @@
 LOCAL_OBJECTS = \
+moleFraction.o\
 laminarTransport.o\
 laminarTransportNew.o\
 mixtureAverage.o\

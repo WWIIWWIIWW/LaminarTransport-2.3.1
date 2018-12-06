@@ -1,4 +1,5 @@
 OBJECTS = \
+$(OBJECTS_DIR)/moleFraction.o\
 $(OBJECTS_DIR)/laminarTransport.o\
 $(OBJECTS_DIR)/laminarTransportNew.o\
 $(OBJECTS_DIR)/mixtureAverage.o\

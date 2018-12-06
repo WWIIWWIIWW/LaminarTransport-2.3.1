@@ -98,26 +98,26 @@ Foam::tmp<Foam::volScalarField> Foam::mixtureAverage::phi
 
 void Foam::mixtureAverage::correct()
 {
-    // Vcorr_ = 
-    // (
-    //     dimensionedVector
-    //     (
-    //         "zero",
-    //         dimensionSet(0, 1, -1, 0, 0, 0, 0),
-    //         vector(0, 0, 0)
-    //     )
-    // );
+    Vcorr_ = 
+    (
+        dimensionedVector
+        (
+            "zero",
+            dimensionSet(0, 1, -1, 0, 0, 0, 0),
+            vector(0, 0, 0)
+        )
+    );
     forAll(Y_, i)
     {
         // Vcorr_ -= Y_[i]*V_[i];
 
         if (!gradX_)
         {
-            volVectorField Vcorr_[i] = Dmix_[i]/thermo_.rho()*fvc::grad(Y_[i], "grad(Yi)");
+            Vcorr_ -= Dmix_[i]/thermo_.rho()*fvc::grad(Y_[i], "grad(Yi)");
         }
         else
         {
-            volVectorField Vcorr_[i] = Dmix_[i]/thermo_.rho()*fvc::grad(Y_[i], "grad(Yi)")
+            Vcorr_ -= Dmix_[i]/thermo_.rho()*fvc::grad(Y_[i], "grad(Yi)")
                                     - Y_[i]*Dmix_[i]*fvc::grad(W())
                                     /(thermo_.rho()*W());
         }

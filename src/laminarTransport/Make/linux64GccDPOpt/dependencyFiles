@@ -1,4 +1,5 @@
 DEPENDENCIES = \
+moleFractions/moleFraction.dep\
 laminarTransport/laminarTransport.dep\
 laminarTransport/laminarTransportNew.dep\
 mixtureAverage/mixtureAverage.dep\

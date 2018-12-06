@@ -486,8 +486,8 @@ mixtureAverage/mixtureAverage.dep: $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/hash
 mixtureAverage/mixtureAverage.dep: $(WM_PROJECT_DIR)/src/thermophysicalModels/reactionThermo/lnInclude/basicMultiComponentMixtureI.H
 mixtureAverage/mixtureAverage.dep: $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/simpleMatrix.H
 mixtureAverage/mixtureAverage.dep: $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/simpleMatrix.C
-mixtureAverage/mixtureAverage.dep: /home/gaozw//OpenFOAM/LaminarTransport-2.3.1/src//moleFractions/lnInclude/moleFraction.H
-mixtureAverage/mixtureAverage.dep: /home/gaozw//OpenFOAM/LaminarTransport-2.3.1/src//moleFractions/lnInclude/moleFractionI.H
+mixtureAverage/mixtureAverage.dep: lnInclude/moleFraction.H
+mixtureAverage/mixtureAverage.dep: lnInclude/moleFractionI.H
 mixtureAverage/mixtureAverage.dep: $(WM_PROJECT_DIR)/src/finiteVolume/lnInclude/fvCFD.H
 mixtureAverage/mixtureAverage.dep: $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/parRun.H
 mixtureAverage/mixtureAverage.dep: $(WM_PROJECT_DIR)/src/finiteVolume/lnInclude/fvc.H

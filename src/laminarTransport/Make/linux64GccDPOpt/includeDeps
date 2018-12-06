@@ -1,3 +1,4 @@
+include moleFractions/moleFraction.dep
 include laminarTransport/laminarTransport.dep
 include laminarTransport/laminarTransportNew.dep
 include mixtureAverage/mixtureAverage.dep
